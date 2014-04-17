@@ -117,7 +117,7 @@ namespace CatchingGame
             spriteBatch.Begin(); 
             GraphicsDevice.Clear(Color.CornflowerBlue);
             P.Draw(spriteBatch);
-            spriteBatch.End();
+
             switch (gameState)
             {
                 case State.playing:
@@ -130,10 +130,11 @@ namespace CatchingGame
                     }
                 case State.Gameover:
                     {
-                        break; 
+                        break;
                     }
+            }
             // TODO: Add your drawing code here
-
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
