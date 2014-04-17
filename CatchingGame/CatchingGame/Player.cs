@@ -15,11 +15,15 @@ namespace CatchingGame
     {
         //Texture for Player
         public Texture2D player;
+        //Default Position for player. 
         public Vector2 position;
+        //Determines Speed of player
         public int speed; 
 
-        //Collision Variables
+        //Collision Variables - Draws box around Player
         public Rectangle boundingBox;
+
+        //Used to determine if object colliding with bounding box
         public bool isColliding;
 
         public Player()
