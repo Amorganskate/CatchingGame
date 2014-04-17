@@ -16,13 +16,31 @@ namespace CatchingGame
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+
+        public enum State
+        {
+            Menu, 
+            playing,
+            Gameover
+
+
+        }
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Player player; 
+        Player P = new Player(); 
+        
 
+        //First state 
+        State gameState = State.Menu;
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this); 
+            //graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.ApplyChanges();
+            this.Window.Title = "Catching Game"; 
+
             Content.RootDirectory = "Content";
         }
 
@@ -47,7 +65,7 @@ namespace CatchingGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+            P.LoadContent(Content); 
             // TODO: use this.Content to load your game content here
         }
 
@@ -67,10 +85,24 @@ namespace CatchingGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            switch (gameState)
+            {
+                case State.playing:
+                    {
 
+                        break;
+                    }
+                case State.Menu:
+                    {
+
+                        break;
+                    }
+                case State.Gameover:
+                    {
+
+                        break;
+                    }
+            }
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -82,8 +114,24 @@ namespace CatchingGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            spriteBatch.Begin(); 
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            P.Draw(spriteBatch);
+            spriteBatch.End();
+            switch (gameState)
+            {
+                case State.playing:
+                    {
+                        break;
+                    }
+                case State.Menu:
+                    {
+                        break;
+                    }
+                case State.Gameover:
+                    {
+                        break; 
+                    }
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

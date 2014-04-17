@@ -14,7 +14,7 @@ namespace CatchingGame
     class Player
     {
         //Texture for Player
-        public Texture2D player;
+        public Texture2D texture;
         //Default Position for player. 
         public Vector2 position;
         //Determines Speed of player
@@ -28,17 +28,29 @@ namespace CatchingGame
 
         public Player()
         {
-            player = null;
+            texture = null;
             isColliding = false; 
             isColliding = false ;
-            speed = 5; 
+            speed = 5;
+
+            position = new Vector2(400, 400);
 
         }
 
         public void LoadContent(ContentManager Content)
         {
-            player = Content.Load<Texture2D>("MinerCart"); 
+            texture = Content.Load<Texture2D>("MinerCart"); 
 
+
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            
+            spriteBatch.Draw(texture, position, Color.White);
+
+
+            
 
         }
     }
