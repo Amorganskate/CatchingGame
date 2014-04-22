@@ -33,8 +33,22 @@
     <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MinerCart.png">
-      <Name>MinerCart</Name>
+    <Compile Include="Cart.png">
+      <Name>Cart</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameMenu.png">
+      <Name>GameMenu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="diamond5.png">
+      <Name>diamond5</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

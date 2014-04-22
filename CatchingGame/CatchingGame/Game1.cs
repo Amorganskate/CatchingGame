@@ -27,8 +27,8 @@ namespace CatchingGame
         }
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Player P = new Player(); 
-        
+        Player P = new Player();
+        public Texture2D menuImage; 
 
         //First state 
         State gameState = State.Menu;
@@ -37,10 +37,11 @@ namespace CatchingGame
             graphics = new GraphicsDeviceManager(this); 
             //graphics.IsFullScreen = false;
             graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 800;
+            graphics.PreferredBackBufferHeight = 500;
+            this.Window.Title = "Catching Game";
             graphics.ApplyChanges();
-            this.Window.Title = "Catching Game"; 
-
+            this.Window.Title = "Catching Game";
+            menuImage = null;
             Content.RootDirectory = "Content";
         }
 
@@ -65,7 +66,8 @@ namespace CatchingGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            P.LoadContent(Content); 
+            P.LoadContent(Content);
+            menuImage = Content.Load<Texture2D>("GameMenu");
             // TODO: use this.Content to load your game content here
         }
 
@@ -89,12 +91,17 @@ namespace CatchingGame
             {
                 case State.playing:
                     {
-
+                        P.Update(gameTime); 
                         break;
                     }
                 case State.Menu:
                     {
+                        KeyboardState keyState = Keyboard.GetState();
 
+                        if (keyState.IsKeyDown (Keys.Enter))
+                        {
+                            gameState =  State.playing;
+                        }
                         break;
                     }
                 case State.Gameover:
@@ -126,6 +133,7 @@ namespace CatchingGame
                     }
                 case State.Menu:
                     {
+                        spriteBatch.Draw(menuImage, new Vector2(0, 0), Color.White );
                         break;
                     }
                 case State.Gameover:
