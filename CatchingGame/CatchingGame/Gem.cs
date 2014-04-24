@@ -43,7 +43,7 @@ namespace CatchingGame
         public void Draw(SpriteBatch spriteBatch)
         {
             if (isVisable)
-                spriteBatch.Draw(texture, position, Color.White); 
+                spriteBatch.Draw(texture, position, null, Color.White); 
 
 
         }

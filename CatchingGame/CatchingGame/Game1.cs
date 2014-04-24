@@ -28,7 +28,9 @@ namespace CatchingGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player P = new Player();
-        public Texture2D menuImage; 
+        public Texture2D menuImage;
+
+        List<Gem> gemList = new List<Gem>();   
 
         //First state 
         State gameState = State.Menu;
@@ -67,6 +69,7 @@ namespace CatchingGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             P.LoadContent(Content);
+             
             menuImage = Content.Load<Texture2D>("GameMenu");
             // TODO: use this.Content to load your game content here
         }
@@ -91,8 +94,16 @@ namespace CatchingGame
             {
                 case State.playing:
                     {
-                        P.Update(gameTime); 
-                        break;
+                        P.Update(gameTime);
+                        foreach (Gem G in gemList)
+                        {
+                            if (G.boundingBox.Intersects(P.boundingBox))
+                            {
+                                G.isVisable = false;
+                            }
+                            G.Update(gameTime);
+                            break;
+                        }
                     }
                 case State.Menu:
                     {
