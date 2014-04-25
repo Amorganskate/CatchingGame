@@ -18,7 +18,7 @@ namespace CatchingGame
         //Default Position for player. 
         public Vector2 position;
         //Determines Speed of player
-        public int speed; 
+        public int speed, health; 
 
         //Collision Variables - Draws box around Player
         public Rectangle boundingBox;
@@ -32,7 +32,7 @@ namespace CatchingGame
             isColliding = false; 
             isColliding = false ;
             speed = 10;
-
+            health = 200;
             position = new Vector2(700, 467);
 
         }

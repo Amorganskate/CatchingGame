@@ -14,10 +14,11 @@ namespace CatchingGame
         public Rectangle boundingBox;
         public Texture2D texture;
         public Vector2 origin;
+        public float rotationAngle; 
         public Vector2 position;
         public bool isVisable;
         public float speed;
-        
+         
         Random random = new Random(); 
         public float randX, randY;
 
@@ -27,30 +28,41 @@ namespace CatchingGame
             
             speed = 4;
             texture = NewTex;
-            isVisable = false;
-            randX = random.Next(0, 450);
-            randY = random.Next(-500, -50); 
+            isVisable = true;
+            randX = random.Next(0,750);
+            randY = random.Next(-600, -50); 
 
         }
         public void Update(GameTime gameTime)
         {
             boundingBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-
+            
             position.Y = position.Y + speed;
-            if (position.Y >= 500)
+            if (position.Y >= 950)
                 position.Y = -50;
+            //Origin for rotation
+
+            origin.X = texture.Width / 2;
+            origin.Y = texture.Height / 2; 
+
+            //rotates Gem
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            rotationAngle += elapsed;
+            float circle = MathHelper.Pi * 2;
+            rotationAngle = rotationAngle % circle; 
+            
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             if (isVisable)
-                spriteBatch.Draw(texture, position, null, Color.White); 
+                spriteBatch.Draw(texture, position, null, Color.CornflowerBlue ); 
 
 
         }
         //Public Load
         public void LoadContent(ContentManager Content)
         {
-            Content.Load<Texture2D>("diamond5"); 
+             
 
 
 

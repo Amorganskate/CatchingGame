@@ -29,8 +29,10 @@ namespace CatchingGame
         SpriteBatch spriteBatch;
         Player P = new Player();
         public Texture2D menuImage;
-
-        List<Gem> gemList = new List<Gem>();   
+        Random random = new Random();
+        List<Gem> gemList = new List<Gem>();
+        HUD hud = new HUD(); 
+        public int score; 
 
         //First state 
         State gameState = State.Menu;
@@ -69,7 +71,7 @@ namespace CatchingGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             P.LoadContent(Content);
-             
+            hud.LoadContent(Content); 
             menuImage = Content.Load<Texture2D>("GameMenu");
             // TODO: use this.Content to load your game content here
         }
@@ -100,10 +102,13 @@ namespace CatchingGame
                             if (G.boundingBox.Intersects(P.boundingBox))
                             {
                                 G.isVisable = false;
+                                hud.playerscore += 50;
                             }
                             G.Update(gameTime);
-                            break;
+                            
                         }
+                        LoadGems(); 
+                        break;
                     }
                 case State.Menu:
                     {
@@ -117,6 +122,17 @@ namespace CatchingGame
                     }
                 case State.Gameover:
                     {
+                        KeyboardState keystate = Keyboard.GetState();
+
+                        if (keystate.IsKeyDown(Keys.Escape))
+                        {
+                            P.position = new Vector2(700, 467);
+                            gemList.Clear();
+                            hud.playerscore = 0; 
+                            gameState = State.Menu;
+                            
+
+                        }
 
                         break;
                     }
@@ -140,6 +156,11 @@ namespace CatchingGame
             {
                 case State.playing:
                     {
+                        hud.Draw(spriteBatch); 
+                        foreach (Gem G in gemList)
+                        {
+                            G.Draw(spriteBatch); 
+                        }
                         break;
                     }
                 case State.Menu:
@@ -149,6 +170,7 @@ namespace CatchingGame
                     }
                 case State.Gameover:
                     {
+                        
                         break;
                     }
             }
@@ -156,5 +178,30 @@ namespace CatchingGame
             spriteBatch.End();
             base.Draw(gameTime);
         }
+        public void LoadGems()
+        {
+            int randX = random.Next(0, 750);
+            int randY = random.Next(-600, -50);
+            
+
+            if (gemList.Count < 5)
+            {
+                gemList.Add( new Gem(Content.Load<Texture2D>("diamond5"), new Vector2 (randX,randY )));
+
+            }
+
+            for (int i=0; i< gemList .Count; i++)
+            {
+                if (!gemList[i].isVisable)
+                {
+                    gemList.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
+
+
+
+        
     }
 }
