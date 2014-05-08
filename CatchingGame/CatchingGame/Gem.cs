@@ -19,7 +19,6 @@ namespace CatchingGame
         public bool isVisable;
         public float speed;
          
-        Random random = new Random(); 
         public float randX, randY;
 
         //Constructor 
@@ -29,8 +28,16 @@ namespace CatchingGame
             speed = 4;
             texture = NewTex;
             isVisable = true;
-            randX = random.Next(0,750);
-            randY = random.Next(-600, -50); 
+
+            // NOTE:
+            // You have to assign the random value to the actual position coords, not the randX and Y vars themselves...
+            // "newPosition" holds the random value created outside of this class (look in Game.cs under the LoadGems() section).
+            // Hope this is what you're looking for. Happy Programming! :)
+            // P.S. Also, you might want to change the gem spawning rate. It's a little too fast, unless that's how you
+            // want it to be...
+            // Thanks for sharing. This game looks fun!
+            position.X = newPosition.X;
+            position.Y = newPosition.Y; 
 
         }
         public void Update(GameTime gameTime)

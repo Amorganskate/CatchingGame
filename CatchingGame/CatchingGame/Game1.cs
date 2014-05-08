@@ -32,7 +32,8 @@ namespace CatchingGame
         Random random = new Random();
         List<Gem> gemList = new List<Gem>();
         HUD hud = new HUD(); 
-        public int score; 
+        public int score;
+        SpriteFont font;
 
         //First state 
         State gameState = State.Menu;
@@ -73,6 +74,7 @@ namespace CatchingGame
             P.LoadContent(Content);
             hud.LoadContent(Content); 
             menuImage = Content.Load<Texture2D>("GameMenu");
+            font = Content.Load<SpriteFont>("MyFont");
             // TODO: use this.Content to load your game content here
         }
 
@@ -104,8 +106,23 @@ namespace CatchingGame
                                 G.isVisable = false;
                                 hud.playerscore += 50;
                             }
+                            KeyboardState keystate = Keyboard.GetState();
+
+                            if (keystate.IsKeyDown(Keys.Escape))
+                            {
+                                this.Exit();
+
+
+                            }
                             G.Update(gameTime);
+
                             
+                            
+                        }
+                        if (hud.playerscore == 10000)
+                        {
+
+                            gameState = State.Gameover;
                         }
                         LoadGems(); 
                         break;
@@ -151,6 +168,7 @@ namespace CatchingGame
             spriteBatch.Begin(); 
             GraphicsDevice.Clear(Color.CornflowerBlue);
             P.Draw(spriteBatch);
+            spriteBatch.DrawString(font, "ESC = EXIT", (new Vector2(585, 410)), Color.Red); 
 
             switch (gameState)
             {
@@ -161,6 +179,8 @@ namespace CatchingGame
                         {
                             G.Draw(spriteBatch); 
                         }
+                        
+                        
                         break;
                     }
                 case State.Menu:
@@ -173,6 +193,7 @@ namespace CatchingGame
                         
                         break;
                     }
+                  
             }
             // TODO: Add your drawing code here
             spriteBatch.End();
@@ -186,7 +207,7 @@ namespace CatchingGame
 
             if (gemList.Count < 5)
             {
-                gemList.Add( new Gem(Content.Load<Texture2D>("diamond5"), new Vector2 (randX,randY )));
+                gemList.Add( new Gem(Content.Load<Texture2D>("diamond5"), new Vector2 (randX, randY)));
 
             }
 
