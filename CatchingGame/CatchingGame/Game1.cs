@@ -28,7 +28,7 @@ namespace CatchingGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player P = new Player();
-        public Texture2D menuImage;
+        public Texture2D menuImage, backGround;
         Random random = new Random();
         List<Gem> gemList = new List<Gem>();
         HUD hud = new HUD(); 
@@ -75,6 +75,7 @@ namespace CatchingGame
             hud.LoadContent(Content); 
             menuImage = Content.Load<Texture2D>("GameMenu");
             font = Content.Load<SpriteFont>("MyFont");
+            backGround = Content.Load<Texture2D>("Back1"); 
             // TODO: use this.Content to load your game content here
         }
 
@@ -166,21 +167,22 @@ namespace CatchingGame
         protected override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin(); 
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+           // GraphicsDevice.Clear(Color.Black);
             P.Draw(spriteBatch);
-            spriteBatch.DrawString(font, "ESC = EXIT", (new Vector2(585, 410)), Color.Red); 
+             
 
             switch (gameState)
             {
                 case State.playing:
                     {
+                        spriteBatch.Draw(backGround, new Vector2(0, 0), Color.White); 
                         hud.Draw(spriteBatch); 
                         foreach (Gem G in gemList)
                         {
                             G.Draw(spriteBatch); 
                         }
-                        
-                        
+
+                        P.Draw(spriteBatch);
                         break;
                     }
                 case State.Menu:
