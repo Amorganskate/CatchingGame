@@ -21,6 +21,10 @@ namespace CatchingGame
          
         public float randX, randY;
 
+        int redInt = 0;
+        int GreenIntenstity = 0;
+        int blueIntensity = 0;
+
         //Constructor 
         public Gem(Texture2D NewTex, Vector2 newPosition)
         {
@@ -47,6 +51,22 @@ namespace CatchingGame
             position.Y = position.Y + speed;
             if (position.Y >= 950)
                 position.Y = -50;
+
+            Random rand = new Random();
+            {
+                redInt = rand.Next(255);
+                GreenIntenstity = rand.Next(255);
+                blueIntensity = rand.Next(255);
+                
+            }
+            int i = 10; 
+            while (i < 10)
+            {
+                redInt = rand.Next(255);
+                GreenIntenstity = rand.Next(255);
+                blueIntensity = rand.Next(255);
+
+            }
             //Origin for rotation
 
             origin.X = texture.Width / 2;
@@ -61,10 +81,13 @@ namespace CatchingGame
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            Color ChangeColor;
+            ChangeColor = new Color(redInt, blueIntensity, GreenIntenstity);
+
             if (isVisable)
-                spriteBatch.Draw(texture, position, null, Color.CornflowerBlue ); 
+                spriteBatch.Draw(texture, position, null, ChangeColor);
 
-
+            
         }
         //Public Load
         public void LoadContent(ContentManager Content)

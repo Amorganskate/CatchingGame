@@ -31,6 +31,8 @@ namespace CatchingGame
         public Texture2D menuImage, backGround;
         Random random = new Random();
         List<Gem> gemList = new List<Gem>();
+        List<Boulder> boulderList = new List<Boulder>(); 
+
         HUD hud = new HUD(); 
         public int score;
         SpriteFont font;
@@ -73,6 +75,7 @@ namespace CatchingGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             P.LoadContent(Content);
             hud.LoadContent(Content); 
+
             menuImage = Content.Load<Texture2D>("GameMenu");
             font = Content.Load<SpriteFont>("MyFont");
             backGround = Content.Load<Texture2D>("Back1"); 
@@ -107,6 +110,16 @@ namespace CatchingGame
                                 G.isVisable = false;
                                 hud.playerscore += 50;
                             }
+                            foreach (Boulder B in boulderList )
+                            {
+                                if (B.boundingBox.Intersects (P.boundingBox ))
+                                {
+                                    B.isVisable = false;
+                                    hud.health -= 40; 
+
+                                }
+                                B.update(gameTime); 
+                            }
                             KeyboardState keystate = Keyboard.GetState();
 
                             if (keystate.IsKeyDown(Keys.Escape))
@@ -116,6 +129,7 @@ namespace CatchingGame
 
                             }
                             G.Update(gameTime);
+                            
 
                             
                             
@@ -126,6 +140,7 @@ namespace CatchingGame
                             gameState = State.Gameover;
                         }
                         LoadGems(); 
+                        
                         break;
                     }
                 case State.Menu:
@@ -182,6 +197,12 @@ namespace CatchingGame
                             G.Draw(spriteBatch); 
                         }
 
+                        foreach (Boulder B in boulderList )
+                        {
+
+                            B.draw(spriteBatch);
+                        }
+
                         P.Draw(spriteBatch);
                         break;
                     }
@@ -218,6 +239,28 @@ namespace CatchingGame
                 if (!gemList[i].isVisable)
                 {
                     gemList.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
+
+        public void LoadBoulders()
+        {
+            int randX = random.Next(0, 750);
+            int randY = random.Next(-600, -50);
+
+
+            if (boulderList.Count < 5)
+            {
+                boulderList.Add(new Boulder(Content.Load<Texture2D>("boulder"), new Vector2(randX, randY)));
+
+            }
+
+            for (int i = 0; i < boulderList.Count; i++)
+            {
+                if (!boulderList[i].isVisable)
+                {
+                    boulderList.RemoveAt(i);
                     i--;
                 }
             }

@@ -73,6 +73,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Boulder.cs" />
     <Compile Include="Gem.cs" />
     <Compile Include="HighScore.cs" />
     <Compile Include="HUD.cs" />

@@ -31,7 +31,7 @@ namespace CatchingGame
         public bool isColliding;
 
         // More Score Vars 
-        HighScoreData data;
+        //HighScoreData data;
         public string HighScoresFilename = "highscores.dat";
         int PlayerScore = 0;
         string PlayerName;
@@ -41,6 +41,7 @@ namespace CatchingGame
         string cmdString = "Enter your player name and press Enter";
         string messageString = ""; 
 
+        //SaveHighscores SaveHighScores; 
         
         public Player()
         {
@@ -53,43 +54,43 @@ namespace CatchingGame
 
         }
 
-        public override void initialize()
-        {
-            //get the path of the save game
-            string fullpath = "highscores.dat";
-            
-            //Checo to see if the save exists
-            if (!File.Exists(fullpath))
-            {
-                //If file does not exsist, make fake one
-                //create the data to save
-                data = new HighScoreData(5);
+        //public override void initialize()
+        //{
+        //    //get the path of the save game
+        //    string fullpath = "highscores.dat";
+             
+        //    //Checo to see if the save exists
+        //    if (!File.Exists(fullpath))
+        //    {
+        //        //If file does not exsist, make fake one
+        //        //create the data to save
+        //        data = new HighScoreData(5);
 
-                data.PlayerName[0] = "Alfred";
-                data.Score[0] = 2000;
+        //        data.PlayerName[0] = "Alfred";
+        //        data.Score[0] = 2000;
 
-                data.PlayerName[1] = "shawn";
-                data.Score[1] = 1800;
+        //        data.PlayerName[1] = "shawn";
+        //        data.Score[1] = 1800;
 
-                data.PlayerName[2] = "mark";
-                data.Score[2] = 1500;
+        //        data.PlayerName[2] = "mark";
+        //        data.Score[2] = 1500;
 
-                data.PlayerName[3] = "cindy";
-                data.Score[3] = 1000;
+        //        data.PlayerName[3] = "cindy";
+        //        data.Score[3] = 1000;
 
-                data.PlayerName[4] = "sam";
-                data.Score[4] = 500;
+        //        data.PlayerName[4] = "sam";
+        //        data.Score[4] = 500;
 
-                SaveHighScores(data, HighScoresFilename, device);
-
-
+        //        SaveHighScores(data, HighScoresFilename, device);
 
 
 
 
-            }
 
-        }
+
+        //    }
+
+        //}
 
         public void LoadContent(ContentManager Content)
         {
@@ -132,113 +133,113 @@ namespace CatchingGame
 
         }
     }
-    [Serializable]
-    public struct HighScoreData
-    {
-        public string[] PlayerName;
-        public int[] Score;
+    //[Serializable]
+    //public struct HighScoreData
+    //{
+    //    public string[] PlayerName;
+    //    public int[] Score;
 
-        public int Count;
+    //    public int Count;
 
-        public HighScoreData (int count)
-        {
+    //    public HighScoreData (int count)
+    //    {
 
-            PlayerName = new string[count];
-            Score = new int[count];
+    //        PlayerName = new string[count];
+    //        Score = new int[count];
 
-            Count = count;
-        }
-        public static void SaveHighScores(HighScoreData data, string filename, StorageDevice device)
-        {
-            //Get the Path of the save game
-            string fullpath = ("highScores.dat");
+    //        Count = count;
+    //    }
+    //    public void SaveHighScores(HighScoreData data, string filename, StorageDevice device)
+    //    {
+    //        //Get the Path of the save game
+    //        string fullpath = ("highScores.dat");
 
-            //Open the file, creating it if necessary
-            FileStream steam = File.Open(fullpath, FileMode.OpenOrCreate);
-            try
-            {
-                XmlSerializer serializer = new XmlSerializer(typeof(HighScoreData));
-                serializer.Serialize(steam, data);
+    //        //Open the file, creating it if necessary
+    //        FileStream steam = File.Open(fullpath, FileMode.OpenOrCreate);
+    //        try
+    //        {
+    //            XmlSerializer serializer = new XmlSerializer(typeof(HighScoreData));
+    //            serializer.Serialize(steam, data);
 
-            }
-            finally
-            {
+    //        }
+    //        finally
+    //        {
 
-                steam.Close();
-            }
+    //            steam.Close();
+    //        }
             
 
-        }
-        public static HighScoreData LoadHighScores(string filename)
-        {
-            HighScoreData data;
+    //    }
+    //    public static HighScoreData LoadHighScores(string filename)
+    //    {
+    //        HighScoreData data;
 
-            //Get the path of the same game
-            string fullpath = "highscores.dat";
+    //        //Get the path of the same game
+    //        string fullpath = "highscores.dat";
 
-            //Open the file
-            FileStream stream = File.Open(fullpath, FileMode.OpenOrCreate, FileAccess.Read);
+    //        //Open the file
+    //        FileStream stream = File.Open(fullpath, FileMode.OpenOrCreate, FileAccess.Read);
 
-            try
-            {
-                //Read the data from the file
-                XmlSerializer serializer = new XmlSerializer(typeof(HighScoreData));
-                data = (HighScoreData)serializer.Deserialize(stream);
+    //        try
+    //        {
+    //            //Read the data from the file
+    //            XmlSerializer serializer = new XmlSerializer(typeof(HighScoreData));
+    //            data = (HighScoreData)serializer.Deserialize(stream);
 
 
-            }
-            finally
-            {
-                stream.Close();
-            }
-            return (data);
-        }
-        private void SaveHighScores()
-        {
-            //Create the data to saved
-            HighScoreData data = LoadHighScores(HighScoresFilename);
+    //        }
+    //        finally
+    //        {
+    //            stream.Close();
+    //        }
+    //        return (data);
+    //    }
+    //    private void SaveHighScores()
+    //    {
+    //        //Create the data to saved
+    //        HighScoreData data = LoadHighScores(HighScoresFilename);
 
-            int scoreIndex = -1;
-            for (int i = data.Count - 1; i> -1; i--)
-            {   
-                if (Score.getScore() >= data.Score[i])
-                {
-                    scoreIndex = i;
+    //        int scoreIndex = -1;
+    //        for (int i = data.Count - 1; i> -1; i--)
+    //        {   
+    //            if (Score.getScore() >= data.Score[i])
+    //            {
+    //                scoreIndex = i;
 
-                }
-            }
-            if (scoreIndex > -1)
-            {
-                //New high score found ... do swaps
-                for (int i = data.Count - 1; i > scoreIndex; i--)
-                {
-                    data.PlayerName[i] = data.PlayerName[i - 1];
-                    data.Score[i] = data.Score[i - 1];
-                }
+    //            }
+    //        }
+    //        if (scoreIndex > -1)
+    //        {
+    //            //New high score found ... do swaps
+    //            for (int i = data.Count - 1; i > scoreIndex; i--)
+    //            {
+    //                data.PlayerName[i] = data.PlayerName[i - 1];
+    //                data.Score[i] = data.Score[i - 1];
+    //            }
  
-                data.PlayerName[scoreIndex] = PlayerName; //Retrieve User Name Here
-                data.Score[scoreIndex] = score.getScore(); // Retrieve score here
+    //            data.PlayerName[scoreIndex] = PlayerName; //Retrieve User Name Here
+    //            data.Score[scoreIndex] = score.getScore(); // Retrieve score here
  
-                SaveHighScores(data, HighScoresFilename, device);
-            }
-        }
+    //            SaveHighScores(data, HighScoresFilename, device);
+    //        }
+    //    }
  
-        /* Iterate through data if highscore is called and make the string to be saved*/
-        public string makeHighScoreString()
-        {
-            // Create the data to save
-            HighScoreData data2 = LoadHighScores(HighScoresFilename);
+    //    /* Iterate through data if highscore is called and make the string to be saved*/
+    //    public string makeHighScoreString()
+    //    {
+    //        // Create the data to save
+    //        HighScoreData data2 = LoadHighScores(HighScoresFilename);
  
-            // Create scoreBoardString
-            string scoreBoardString = "Highscores:\n\n";
+    //        // Create scoreBoardString
+    //        string scoreBoardString = "Highscores:\n\n";
  
-            for (int i = 0; i<5; i++) // this part was missing (5 means how many in the list/array/Counter)
-            {
-                        scoreBoardString = scoreBoardString + data2.PlayerName[i] + "-" + data2.Score[i] + "\n";
-            }
-            return scoreBoardString;
-        }
-        }
+    //        for (int i = 0; i<5; i++) // this part was missing (5 means how many in the list/array/Counter)
+    //        {
+    //                    scoreBoardString = scoreBoardString + data2.PlayerName[i] + "-" + data2.Score[i] + "\n";
+    //        }
+    //        return scoreBoardString;
+    //    }
+    //    }
     }
-  
-}
+
+
